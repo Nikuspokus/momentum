@@ -10,6 +10,7 @@ on:
       - .github/workflows/android.yml
       - scripts/android-setup.mjs
       - capacitor.config.ts
+      - assets/**
       - app/**
       - package.json
 
@@ -38,6 +39,7 @@ jobs:
         run: |
           npx cap add android
           node scripts/android-setup.mjs
+          npx capacitor-assets generate --android
           npx cap sync android
       - name: Clé de signature conservée entre les builds (permet de mettre à jour sans désinstaller)
         uses: actions/cache@v4

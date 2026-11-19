@@ -8,6 +8,7 @@ export const useStepsStore = defineStore('steps', () => {
   const healthError = ref<string | null>(null)
   const syncing = ref(false)
   const lastSync = ref<Date | null>(null)
+  const diag = ref<string | null>(null)
 
   async function load(force = false) {
     if (loaded.value && !force) return
@@ -83,6 +84,18 @@ export const useStepsStore = defineStore('steps', () => {
         const keys = new Set(rows.map((r) => r.day))
         entries.value = [...rows, ...entries.value.filter((e) => !keys.has(e.day))]
       }
+      // Diagnostic : ce que Health Connect renvoie réellement pour aujourd'hui
+      const todayKey = localDayKey(new Date())
+      const todayTotal = rows.find((r) => r.day === todayKey)?.steps ?? 0
+      const midnight = new Date()
+      midnight.setHours(0, 0, 0, 0)
+      const raw = await Health.readSamples({
+        dataType: 'steps', startDate: midnight.toISOString(), endDate: new Date().toISOString(), limit: 500,
+      })
+      const sources = [...new Set(raw.samples.map((x) => x.sourceName ?? x.sourceId ?? 'inconnue'))]
+      diag.value = sources.length
+        ? `Health Connect : ${todayTotal} pas aujourd'hui · sources : ${sources.join(', ')}`
+        : "Health Connect ne contient aucun pas aujourd'hui : aucune app n'y enregistre tes pas. Ouvre Health Connect > Données et accès > Pas pour choisir la source."
       lastSync.value = new Date()
       return true
     } catch (e) {
@@ -93,5 +106,5 @@ export const useStepsStore = defineStore('steps', () => {
     }
   }
 
-  return { entries, loaded, error, healthError, syncing, lastSync, today, week, load, setToday, syncFromHealth }
+  return { entries, loaded, error, healthError, diag, syncing, lastSync, today, week, load, setToday, syncFromHealth }
 })

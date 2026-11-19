@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const steps = useStepsStore()
-const { today, week, syncing, lastSync, healthError } = storeToRefs(steps)
+const { today, week, syncing, lastSync, healthError, diag } = storeToRefs(steps)
 const native = ref(false)
 onMounted(() => {
   native.value = isNative()
@@ -68,6 +68,7 @@ async function save() {
         Pas lus depuis Health Connect<template v-if="lastSync"> · mis à jour à {{ lastSync.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) }}</template>.
         <button class="link" type="button" @click="open">Corriger à la main</button>
       </p>
+      <p v-if="diag" class="muted small">{{ diag }}</p>
       <p v-if="healthError" class="error small">{{ healthError }}</p>
     </template>
     <template v-else>

@@ -2,9 +2,11 @@
 const weight = useWeightStore()
 const meals = useMealsStore()
 const workouts = useWorkoutsStore()
+const strength = useStrengthStore()
 const { weighedToday, goal, currentKg } = storeToRefs(weight)
 const { totals } = storeToRefs(meals)
 const { doneToday, nextSession } = storeToRefs(workouts)
+const { doneToday: strengthDone, nextSession: nextStrength } = storeToRefs(strength)
 
 const target = computed(() => (goal.value ? computeNutrition(goal.value, currentKg.value) : null))
 const mealsDone = computed(() => meals.todayEntries.length >= 2)
@@ -54,12 +56,26 @@ async function submit() {
           <UiIcon v-if="doneToday" name="check" :size="16" />
         </span>
         <div class="grow">
-          <p class="title">{{ doneToday ? 'Séance faite' : nextSession ? 'Séance du jour' : 'Plan terminé' }}</p>
+          <p class="title">{{ doneToday ? 'Course faite' : nextSession ? 'Course du jour' : 'Plan course terminé' }}</p>
           <p v-if="nextSession" class="muted small">
             Sem. {{ nextSession.week }}, séance {{ nextSession.session }} · <span class="nw">{{ formatMinutes(nextSession.totalSec) }}</span>
           </p>
         </div>
         <NuxtLink v-if="nextSession && !doneToday" to="/course" class="btn btn-hivis go">Démarrer</NuxtLink>
+      </li>
+
+      <!-- Renfo -->
+      <li class="item">
+        <span class="tick" :class="{ on: strengthDone }" aria-hidden="true">
+          <UiIcon v-if="strengthDone" name="check" :size="16" />
+        </span>
+        <div class="grow">
+          <p class="title">{{ strengthDone ? 'Renfo fait' : nextStrength ? 'Renfo du jour' : 'Plan renfo terminé' }}</p>
+          <p v-if="nextStrength" class="muted small">
+            {{ nextStrength.title }} · <span class="nw">{{ nextStrength.estMin }} min</span>
+          </p>
+        </div>
+        <NuxtLink v-if="nextStrength && !strengthDone" to="/renfo" class="btn btn-line go">Voir</NuxtLink>
       </li>
 
       <!-- Repas -->

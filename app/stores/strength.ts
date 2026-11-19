@@ -15,6 +15,11 @@ export const useStrengthStore = defineStore('strength', () => {
   )
   const nextSession = computed(() => STRENGTH_PLAN.find((s) => !doneIds.value.has(s.id)) ?? null)
 
+  const doneToday = computed(() => {
+    const today = new Date().toDateString()
+    return entries.value.some((s) => new Date(s.started_at).toDateString() === today)
+  })
+
   async function load(force = false) {
     if (loaded.value && !force) return
     const { data, error: err } = await supabase
@@ -49,5 +54,5 @@ export const useStrengthStore = defineStore('strength', () => {
     entries.value = entries.value.filter((s) => s.id !== id)
   }
 
-  return { entries, loaded, error, doneIds, nextSession, load, add, remove }
+  return { entries, loaded, error, doneIds, nextSession, doneToday, load, add, remove }
 })

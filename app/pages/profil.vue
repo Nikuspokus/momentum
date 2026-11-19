@@ -151,6 +151,11 @@ async function save() {
     </section>
 
     <section class="panel stack">
+      <h2 style="margin: 0">Rappels</h2>
+      <FeaturesReminderSettings />
+    </section>
+
+    <section class="panel stack">
       <h2 style="margin: 0">Apparence</h2>
       <div class="theme-seg" role="radiogroup" aria-label="Thème">
         <button

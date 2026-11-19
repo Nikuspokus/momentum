@@ -1,20 +1,21 @@
 /* Momentum — thème « jour de course » : brouillard du matin, encre marine, cobalt, jaune haute visibilité */
 :root {
-  color-scheme: dark;
-  --fog: #0a2620;        /* pelouse de nuit */
-  --paper: #12382d;      /* cartes */
-  --ink: #f4f0e4;        /* blanc craie */
-  --ink-2: #9fbab0;
-  --line: #2a5545;
-  --cobalt: #ff6a2b;     /* orange piste (accent principal) */
-  --cobalt-dark: #e8531a;
-  --hivis: #f5d547;      /* jaune soleil */
-  --on-accent: #0a2620;  /* texte sur orange / jaune */
-  --bib: #f4f0e4;        /* dossard */
-  --bib-ink: #0a2620;
-  --bib-accent: #c9420f;
-  --ok: #4fd08f;
-  --bad: #ff7a6b;
+  color-scheme: light;
+  --fog: #edf0ea;        /* fond sauge très clair */
+  --paper: #ffffff;      /* cartes */
+  --ink: #16221d;        /* texte */
+  --ink-2: #55625a;      /* texte secondaire (contraste 6,4:1) */
+  --line: #d3dacf;
+  --cobalt: #1e5b4a;     /* vert forêt (accent principal) */
+  --cobalt-dark: #164536;
+  --hivis: #f0c24b;      /* jaune miel, touches et réussites */
+  --on-accent: #ffffff;  /* texte sur le vert forêt */
+  --on-hivis: #2a2008;   /* texte sur le jaune */
+  --bib: #ffffff;        /* dossard */
+  --bib-ink: #16221d;
+  --bib-accent: #1e5b4a;
+  --ok: #1e7a4f;
+  --bad: #b42318;
   --radius: 14px;
   --radius-sm: 10px;
   --tabs-h: 64px;
@@ -38,7 +39,7 @@ h1 { font-size: 1.9rem; font-weight: 800; font-stretch: 118%; letter-spacing: -0
 h2 { font-size: 1.15rem; font-weight: 800; font-stretch: 112%; margin-bottom: 0.6rem; }
 h3 { font-size: 1rem; font-weight: 700; }
 p { margin: 0; }
-a { color: var(--hivis); }
+a { color: var(--cobalt); }
 ::placeholder { color: var(--ink-2); opacity: 0.75; }
 
 .muted { color: var(--ink-2); }
@@ -90,7 +91,7 @@ a { color: var(--hivis); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn-primary { background: var(--cobalt); color: var(--on-accent); }
 .btn-primary:active { background: var(--cobalt-dark); }
-.btn-hivis { background: var(--hivis); color: var(--on-accent); }
+.btn-hivis { background: var(--hivis); color: var(--on-hivis); }
 .btn-ink { background: var(--ink); color: var(--on-accent); }
 .btn-quiet { background: transparent; color: var(--ink-2); padding-inline: 0.6rem; }
 .btn-line { background: var(--paper); color: var(--ink); border: 1px solid var(--line); }
@@ -110,7 +111,7 @@ input:focus, select:focus { border-color: var(--cobalt); outline: 2px solid var(
 .chip {
   display: inline-flex; align-items: center; gap: 0.3rem;
   padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700;
-  background: var(--hivis); color: var(--on-accent);
+  background: var(--hivis); color: var(--on-hivis);
 }
 .bar { height: 10px; background: var(--fog); border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
 .bar-fill { height: 100%; background: var(--cobalt); border-radius: 999px; transition: width 0.4s ease; }

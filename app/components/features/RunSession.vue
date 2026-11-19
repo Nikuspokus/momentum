@@ -116,7 +116,7 @@ async function save() {
   background: var(--fog); color: var(--ink); transition: background 0.3s ease;
 }
 .run.phase-run { background: var(--cobalt); color: var(--on-accent); }
-.run.phase-walk { background: var(--hivis); color: var(--on-accent); }
+.run.phase-walk { background: var(--hivis); color: var(--on-hivis); }
 .body { display: grid; gap: 1rem; max-width: 520px; width: 100%; margin: 0 auto; }
 .strong { font-weight: 700; }
 .close { all: unset; cursor: pointer; padding: 0.4rem; }

@@ -1,5 +1,6 @@
-// SPA statique (ssr: false) servie par GitHub Pages sous /momentum/
-const BASE = '/momentum/'
+// SPA statique (ssr: false) servie par GitHub Pages sous /momentum/.
+// Dans l'APK Android (NUXT_TARGET=android), les fichiers sont servis à la racine.
+const BASE = process.env.NUXT_TARGET === 'android' ? '/' : '/momentum/'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',

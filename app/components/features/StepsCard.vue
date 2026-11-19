@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const steps = useStepsStore()
-const { today, week } = storeToRefs(steps)
+const { today, week, syncing, lastSync, healthError } = storeToRefs(steps)
+const native = ref(false)
+onMounted(() => {
+  native.value = isNative()
+  if (native.value) steps.syncFromHealth()
+})
 
 const pct = computed(() => Math.min(100, (today.value / STEP_GOAL) * 100))
 const R = 52
@@ -55,13 +60,26 @@ async function save() {
       <button class="btn btn-primary" type="submit" :disabled="!valid || saving">OK</button>
       <button class="btn btn-quiet" type="button" @click="editing = false">Annuler</button>
     </form>
-    <button v-else class="btn btn-line btn-block" type="button" @click="open">Saisir mes pas</button>
-    <p class="muted small">Le total est celui de ta montre ou de ton téléphone ; sans saisie, il est estimé à partir de tes courses suivies.</p>
+    <template v-else-if="native">
+      <button class="btn btn-line btn-block" type="button" :disabled="syncing" @click="steps.syncFromHealth()">
+        {{ syncing ? 'Synchronisation…' : 'Synchroniser Health Connect' }}
+      </button>
+      <p class="muted small">
+        Pas lus depuis Health Connect<template v-if="lastSync"> · mis à jour à {{ lastSync.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) }}</template>.
+        <button class="link" type="button" @click="open">Corriger à la main</button>
+      </p>
+      <p v-if="healthError" class="error small">{{ healthError }}</p>
+    </template>
+    <template v-else>
+      <button class="btn btn-line btn-block" type="button" @click="open">Saisir mes pas</button>
+      <p class="muted small">Le total est celui de ta montre ou de ton téléphone ; sans saisie, il est estimé à partir de tes courses suivies. La lecture automatique est disponible dans l'app Android.</p>
+    </template>
     <p v-if="steps.error" class="error small">{{ steps.error }}</p>
   </section>
 </template>
 
 <style scoped>
+.link { background: none; border: 0; padding: 0; font: inherit; color: var(--cobalt); text-decoration: underline; cursor: pointer; }
 .top { display: flex; align-items: center; gap: 1rem; }
 .ring { flex: none; width: min(34vw, 8.5rem); height: auto; }
 .track { fill: none; stroke: var(--line); stroke-width: 11; }

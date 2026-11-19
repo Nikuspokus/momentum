@@ -1,0 +1,55 @@
+name: Build Android APK
+
+# Lancement manuel : Actions > Build Android APK > Run workflow.
+# L'APK est publié dans « Releases » (dernière version), à télécharger depuis le téléphone.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/android.yml
+      - scripts/android-setup.mjs
+      - capacitor.config.ts
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    env:
+      NUXT_TARGET: android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - name: Build web (à la racine, pour l'APK)
+        run: npm run generate
+      - name: Créer et préparer le projet Android
+        run: |
+          npx cap add android
+          node scripts/android-setup.mjs
+          npx cap sync android
+      - name: Clé de signature conservée entre les builds (permet de mettre à jour sans désinstaller)
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: android-debug-keystore-v1
+      - name: Compiler l'APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon
+      - name: Publier l'APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk momentum.apk
+          gh release delete android-latest --yes --cleanup-tag 2>/dev/null || true
+          gh release create android-latest momentum.apk --title "Momentum Android (build ${{ github.run_number }})" \
+            --notes "APK de test signé en debug. Installe-le depuis le téléphone (sources inconnues à autoriser). Build du ${{ github.sha }}."

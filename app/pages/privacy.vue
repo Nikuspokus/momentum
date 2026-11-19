@@ -17,7 +17,12 @@ useHead({ title: 'Confidentialité – Momentum' })
     <h2>Données collectées</h2>
     <ul>
       <li>Ton adresse e-mail, ton nom et ta photo de profil Google, reçus lors de la connexion « Se connecter avec Google ».</li>
-      <li>Les données que tu saisis toi-même : pesées, objectifs, et plus tard repas et sorties.</li>
+      <li>Les données que tu saisis ou enregistres toi-même : pesées, objectifs, repas, séances de renforcement, courses (durée, distance et tracé GPS).</li>
+      <li>
+        Dans l'application Android uniquement : ton nombre de pas quotidien, lu dans Health Connect
+        après ton autorisation explicite. Seul le total de pas par jour est lu et enregistré ; aucune autre donnée de santé n'est consultée.
+      </li>
+      <li>Si tu actives les rappels : l'identifiant technique de notification de ton appareil et les heures choisies.</li>
     </ul>
 
     <h2>Utilisation</h2>

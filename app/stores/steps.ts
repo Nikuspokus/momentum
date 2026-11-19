@@ -5,6 +5,9 @@ export const useStepsStore = defineStore('steps', () => {
   const entries = ref<DailyStepsRow[]>([])
   const loaded = ref(false)
   const error = ref<string | null>(null)
+  const healthError = ref<string | null>(null)
+  const syncing = ref(false)
+  const lastSync = ref<Date | null>(null)
 
   async function load(force = false) {
     if (loaded.value && !force) return
@@ -46,5 +49,49 @@ export const useStepsStore = defineStore('steps', () => {
     return true
   }
 
-  return { entries, loaded, error, today, week, load, setToday }
+  // Lit les pas dans Health Connect (APK Android uniquement) et les enregistre par jour
+  async function syncFromHealth(days = 7) {
+    if (!isNative() || syncing.value) return false
+    const userId = useAuthStore().user?.id
+    if (!userId) return false
+    syncing.value = true
+    healthError.value = null
+    try {
+      const { Health } = await import('@capgo/capacitor-health')
+      const avail = await Health.isAvailable()
+      if (!avail.available) {
+        healthError.value = avail.reason ?? 'Health Connect est indisponible sur cet appareil.'
+        return false
+      }
+      const status = await Health.requestAuthorization({ read: ['steps'] })
+      if (!status.readAuthorized.includes('steps')) {
+        healthError.value = "Accès aux pas refusé : autorise-le dans Health Connect > Autorisations de l'app."
+        return false
+      }
+      const start = new Date()
+      start.setHours(0, 0, 0, 0)
+      start.setDate(start.getDate() - (days - 1))
+      const { samples } = await Health.queryAggregated({
+        dataType: 'steps', startDate: start.toISOString(), endDate: new Date().toISOString(), bucket: 'day', aggregation: 'sum',
+      })
+      const rows = samples
+        .map((x) => ({ user_id: userId, day: localDayKey(new Date(x.startDate)), steps: Math.round(x.value), updated_at: new Date().toISOString() }))
+        .filter((r) => r.steps >= 0 && r.steps <= 100000)
+      if (rows.length) {
+        const { error: err } = await supabase.from('daily_steps').upsert(rows)
+        if (err) { healthError.value = err.message; return false }
+        const keys = new Set(rows.map((r) => r.day))
+        entries.value = [...rows, ...entries.value.filter((e) => !keys.has(e.day))]
+      }
+      lastSync.value = new Date()
+      return true
+    } catch (e) {
+      healthError.value = (e as Error).message
+      return false
+    } finally {
+      syncing.value = false
+    }
+  }
+
+  return { entries, loaded, error, healthError, syncing, lastSync, today, week, load, setToday, syncFromHealth }
 })

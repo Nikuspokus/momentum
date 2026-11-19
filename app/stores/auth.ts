@@ -20,6 +20,17 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function signInWithGoogle() {
     error.value = null
+    if (isNative()) {
+      // Google refuse la connexion dans une WebView : on ouvre le navigateur du téléphone (Chrome Custom Tab)
+      const { Browser } = await import('@capacitor/browser')
+      const { data, error: err } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: NATIVE_REDIRECT, skipBrowserRedirect: true },
+      })
+      if (err || !data.url) error.value = err?.message ?? 'Connexion impossible'
+      else await Browser.open({ url: data.url })
+      return
+    }
     const redirectTo = `${window.location.origin}${useRuntimeConfig().app.baseURL}`
     const { error: err } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -32,5 +43,16 @@ export const useAuthStore = defineStore('auth', () => {
     await supabase.auth.signOut()
   }
 
-  return { user, ready, error, init, signInWithGoogle, signOut }
+  // Retour du navigateur : dev.nikuspokus.momentum://auth?code=... → on échange le code contre une session
+  async function completeNativeLogin(url: string) {
+    const code = new URL(url).searchParams.get('code')
+    const { Browser } = await import('@capacitor/browser')
+    await Browser.close().catch(() => {})
+    if (!code) return
+    const { error: err } = await supabase.auth.exchangeCodeForSession(code)
+    if (err) error.value = err.message
+    else await navigateTo('/', { replace: true })
+  }
+
+  return { user, ready, error, init, signInWithGoogle, signOut, completeNativeLogin }
 })

@@ -21,7 +21,7 @@ export const useRemindersStore = defineStore('reminders', () => {
   const error = ref<string | null>(null)
 
   const supported = computed(
-    () => import.meta.client && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window,
+    () => import.meta.client && !isNative() && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window,
   )
 
   async function registration() {

@@ -36,7 +36,7 @@ async function test() {
 <template>
   <div class="stack">
     <p v-if="!supported" class="muted">
-      Ce navigateur ne gère pas les notifications. Sur Android, ouvre l'app dans Chrome ; sur iPhone, ajoute-la d'abord à l'écran d'accueil.
+      Les rappels fonctionnent depuis la version web : ouvre https://nikuspokus.github.io/momentum/ dans Chrome et active-les depuis Profil. Sur iPhone, ajoute d'abord l'app à l'écran d'accueil.
     </p>
 
     <template v-else>

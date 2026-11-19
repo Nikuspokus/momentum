@@ -21,6 +21,26 @@
   --tabs-h: 64px;
 }
 
+/* Thème sombre : ardoise et menthe */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --fog: #12171e;
+  --paper: #1b222c;
+  --ink: #eef2f6;
+  --ink-2: #a3afbd;
+  --line: #303a47;
+  --cobalt: #7dd3b0;
+  --cobalt-dark: #5fbf99;
+  --hivis: #e8c468;
+  --on-accent: #0d1713;
+  --on-hivis: #1a1405;
+  --bib: #eef2f6;
+  --bib-ink: #12171e;
+  --bib-accent: #1d7a5c;
+  --ok: #4fd08f;
+  --bad: #ff7a6b;
+}
+
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 

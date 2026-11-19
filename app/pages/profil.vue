@@ -6,6 +6,12 @@ const weight = useWeightStore()
 const { user } = storeToRefs(auth)
 const { goal, currentKg, error } = storeToRefs(weight)
 const { badges, level, xp } = useGamification()
+const { pref, setPref } = useTheme()
+const THEMES = [
+  { value: 'auto', label: 'Auto' },
+  { value: 'light', label: 'Clair' },
+  { value: 'dark', label: 'Sombre' },
+] as const
 
 const form = reactive({
   target: '', height: '', age: '', sex: 'M', activity: '1.375', loss: '0.5',
@@ -136,6 +142,17 @@ async function save() {
     </section>
 
     <section class="panel stack">
+      <h2 style="margin: 0">Apparence</h2>
+      <div class="theme-seg" role="radiogroup" aria-label="Thème">
+        <button
+          v-for="t in THEMES" :key="t.value" type="button" role="radio"
+          :aria-checked="pref === t.value" :class="{ on: pref === t.value }" @click="setPref(t.value)"
+        >{{ t.label }}</button>
+      </div>
+      <p class="muted small">Auto suit le réglage de ton téléphone.</p>
+    </section>
+
+    <section class="panel stack">
       <h2 style="margin: 0">Installer l'application</h2>
       <p class="muted">
         Dans Chrome sur Android, ouvre le menu (les trois points) puis « Ajouter à l'écran d'accueil »
@@ -155,6 +172,9 @@ async function save() {
 
 <style scoped>
 .page { display: grid; gap: 1.6rem; }
+.theme-seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--fog); border-radius: var(--radius-sm); padding: 3px; }
+.theme-seg button { border: 0; background: transparent; padding: 0.7rem 0.2rem; border-radius: 8px; font: inherit; font-weight: 700; color: var(--ink-2); cursor: pointer; min-height: 44px; }
+.theme-seg button.on { background: var(--cobalt); color: var(--on-accent); }
 .head { display: flex; align-items: center; gap: 1rem; }
 .kv { display: grid; gap: 0.5rem; margin: 0; }
 .kv div { display: flex; justify-content: space-between; border-bottom: 1px solid var(--fog); padding-bottom: 0.4rem; }

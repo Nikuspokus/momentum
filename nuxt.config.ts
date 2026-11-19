@@ -13,6 +13,14 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'fr' },
       title: 'Momentum',
+      script: [
+        {
+          // Applique le thème avant le premier affichage (évite un flash clair en mode sombre)
+          innerHTML:
+            "try{var p=localStorage.getItem('theme')||'auto';var d=p==='dark'||(p==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'}catch(e){}",
+          tagPosition: 'head',
+        },
+      ],
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
         { name: 'theme-color', content: '#1E5B4A' },

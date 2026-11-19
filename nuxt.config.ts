@@ -15,7 +15,7 @@ export default defineNuxtConfig({
       title: 'Momentum',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-        { name: 'theme-color', content: '#2447F5' },
+        { name: 'theme-color', content: '#0A2620' },
         { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'description', content: 'Suivi du poids, de la course et de la nutrition' },
       ],

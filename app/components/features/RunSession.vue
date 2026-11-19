@@ -115,8 +115,8 @@ async function save() {
   display: grid; align-content: start; gap: 1rem;
   background: var(--fog); color: var(--ink); transition: background 0.3s ease;
 }
-.run.phase-run { background: var(--cobalt); color: #fff; }
-.run.phase-walk { background: var(--hivis); color: var(--ink); }
+.run.phase-run { background: var(--cobalt); color: var(--on-accent); }
+.run.phase-walk { background: var(--hivis); color: var(--on-accent); }
 .body { display: grid; gap: 1rem; max-width: 520px; width: 100%; margin: 0 auto; }
 .strong { font-weight: 700; }
 .close { all: unset; cursor: pointer; padding: 0.4rem; }
@@ -128,7 +128,8 @@ async function save() {
 .check input { width: 22px; height: 22px; min-height: 0; accent-color: var(--cobalt); }
 .big-btn { min-height: 56px; font-size: 1.1rem; }
 .grow-btn { flex: 1; }
-.run.phase-run .btn-ink { background: #fff; color: var(--ink); }
+.run.phase-run .btn-ink, .run.phase-walk .btn-ink { background: var(--on-accent); color: var(--ink); }
+.run.phase-run .btn-line, .run.phase-walk .btn-line { background: transparent; color: inherit; border-color: currentColor; }
 .ribbon { display: flex; gap: 3px; height: 14px; }
 .seg { border-radius: 4px; opacity: 0.35; }
 .seg.run { background: currentColor; }

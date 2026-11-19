@@ -226,7 +226,7 @@ async function addManual() {
 </template>
 
 <style scoped>
-.sheet-backdrop { position: fixed; inset: 0; z-index: 40; background: rgba(14, 27, 44, 0.55); display: flex; align-items: flex-end; justify-content: center; }
+.sheet-backdrop { position: fixed; inset: 0; z-index: 40; background: rgba(0, 0, 0, 0.6); display: flex; align-items: flex-end; justify-content: center; }
 .sheet {
   width: 100%; max-width: 520px; max-height: 92dvh; overflow-y: auto;
   background: var(--paper); border-radius: 18px 18px 0 0; padding: 1rem 1rem calc(1.2rem + env(safe-area-inset-bottom));
@@ -234,7 +234,7 @@ async function addManual() {
 }
 .seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--fog); border-radius: var(--radius-sm); padding: 3px; }
 .seg button { border: 0; background: transparent; padding: 0.6rem 0.2rem; border-radius: 8px; font: inherit; font-weight: 700; color: var(--ink-2); cursor: pointer; }
-.seg button.on { background: var(--paper); color: var(--ink); box-shadow: 0 1px 2px rgba(14, 27, 44, 0.15); }
+.seg button.on { background: var(--cobalt); color: var(--on-accent); }
 .hit { all: unset; display: grid; gap: 0.1rem; width: 100%; cursor: pointer; padding: 0.15rem 0; }
 .hit:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 2px; }
 .grow-btn { flex: 1; }

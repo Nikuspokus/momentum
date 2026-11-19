@@ -86,7 +86,7 @@ async function submit() {
   flex: none; width: 26px; height: 26px; margin-top: 2px; border-radius: 50%;
   border: 2px solid var(--ink-2); display: grid; place-items: center; color: var(--ink);
 }
-.tick.on { background: var(--hivis); border-color: var(--ink); }
+.tick.on { background: var(--hivis); border-color: var(--hivis); color: var(--on-accent); }
 .weigh { display: grid; gap: 0.4rem; }
 .go { align-self: center; min-height: 40px; padding: 0.4rem 0.9rem; font-size: 0.92rem; }
 </style>

@@ -7,8 +7,8 @@
   "scope": "/momentum/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#EDF1F4",
-  "theme_color": "#2447F5",
+  "background_color": "#0A2620",
+  "theme_color": "#0A2620",
   "icons": [
     { "src": "/momentum/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/momentum/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },

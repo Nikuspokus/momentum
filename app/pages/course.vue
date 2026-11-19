@@ -28,7 +28,7 @@ const withRoute = computed(() => entries.value.filter((w) => w.route && w.route.
       <h2 style="margin: 0">Semaine {{ nextSession.week }}, séance {{ nextSession.session }}</h2>
       <p>{{ nextSession.title }}</p>
       <p class="small">Durée totale : {{ formatMinutes(nextSession.totalSec) }}, échauffement et retour au calme compris.</p>
-      <button class="btn btn-hivis btn-block" type="button" @click="running = true">Démarrer la séance</button>
+      <button class="btn btn-ink btn-block" type="button" @click="running = true">Démarrer la séance</button>
     </section>
     <p v-else class="strong">Tu as terminé tout le plan. Bravo !</p>
 
@@ -90,11 +90,11 @@ const withRoute = computed(() => entries.value.filter((w) => w.route && w.route.
 
 <style scoped>
 .page { display: grid; gap: 1.4rem; }
-.next { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 1.1rem; }
+.next { background: var(--cobalt); color: var(--on-accent); border-radius: var(--radius); padding: 1.1rem; }
 .next .btn-hivis { margin-top: 0.3rem; }
 .strong { font-weight: 700; }
 .dots { display: flex; gap: 6px; }
 .dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink-2); }
-.dot.on { background: var(--hivis); border-color: var(--ink); }
+.dot.on { background: var(--hivis); border-color: var(--hivis); }
 .outing { display: block; }
 </style>

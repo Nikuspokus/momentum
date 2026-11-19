@@ -28,12 +28,12 @@ const { error } = storeToRefs(auth)
 <style scoped>
 .login { min-height: 100dvh; display: grid; align-content: center; gap: 1.2rem; max-width: 420px; margin: 0 auto; padding: 1.5rem; }
 .bib {
-  position: relative; background: var(--paper); border: 2px solid var(--ink); border-radius: 8px;
-  padding: 2rem 1.2rem 1.4rem; transform: rotate(-1.5deg); box-shadow: 5px 5px 0 var(--ink); text-align: center;
+  position: relative; background: var(--bib); color: var(--bib-ink); border: 2px solid var(--bib-ink); border-radius: 8px;
+  padding: 2rem 1.2rem 1.4rem; transform: rotate(-1.5deg); box-shadow: 6px 6px 0 var(--cobalt); text-align: center;
 }
-.brand { font-size: 2.6rem; font-weight: 900; font-stretch: 125%; color: var(--cobalt); line-height: 1; letter-spacing: -0.02em; }
+.brand { font-size: 2.6rem; font-weight: 900; font-stretch: 125%; color: var(--bib-accent); line-height: 1; letter-spacing: -0.02em; }
 .tag { font-size: 1.1rem; font-weight: 800; margin-top: 0.5rem; }
-.pin { position: absolute; width: 11px; height: 11px; border-radius: 50%; background: var(--fog); border: 1.5px solid var(--ink); }
+.pin { position: absolute; width: 11px; height: 11px; border-radius: 50%; background: var(--fog); border: 1.5px solid var(--bib-ink); }
 .pin-tl { top: 8px; left: 8px; } .pin-tr { top: 8px; right: 8px; }
 .pin-bl { bottom: 8px; left: 8px; } .pin-br { bottom: 8px; right: 8px; }
 .lead { font-size: 1.1rem; }

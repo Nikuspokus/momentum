@@ -158,5 +158,5 @@ async function save() {
 .kv dd { margin: 0; font-weight: 800; }
 .badges { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
 .badges li { border: 2px dashed var(--ink-2); border-radius: var(--radius-sm); padding: 0.7rem; color: var(--ink-2); }
-.badges li.on { border: 2px solid var(--ink); background: var(--hivis); color: var(--ink); }
+.badges li.on { border: 2px solid var(--hivis); background: var(--hivis); color: var(--on-accent); }
 </style>

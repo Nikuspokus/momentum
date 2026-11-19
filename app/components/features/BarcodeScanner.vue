@@ -75,10 +75,10 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.viewfinder { position: relative; border-radius: var(--radius); overflow: hidden; background: var(--ink); aspect-ratio: 4 / 3; }
+.viewfinder { position: relative; border-radius: var(--radius); overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
 .viewfinder video { width: 100%; height: 100%; object-fit: cover; }
 .frame {
   position: absolute; inset: 22% 10%; border: 3px solid var(--hivis); border-radius: 10px;
-  box-shadow: 0 0 0 999px rgba(14, 27, 44, 0.35);
+  box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.5);
 }
 </style>

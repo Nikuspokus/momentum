@@ -60,32 +60,33 @@ const dayCount = computed(() => {
 <style scoped>
 .bib {
   position: relative;
-  background: var(--paper);
-  border: 2px solid var(--ink);
+  background: var(--bib);
+  color: var(--bib-ink);
+  border: 2px solid var(--bib-ink);
   border-radius: 8px;
   padding: 1rem 1.3rem 0.9rem;
   transform: rotate(-0.5deg);
-  box-shadow: 4px 4px 0 var(--ink);
+  box-shadow: 5px 5px 0 var(--cobalt);
 }
 .pin {
   position: absolute; width: 11px; height: 11px; border-radius: 50%;
-  background: var(--fog); border: 1.5px solid var(--ink);
+  background: var(--fog); border: 1.5px solid var(--bib-ink);
 }
 .pin-tl { top: 8px; left: 8px; }
 .pin-tr { top: 8px; right: 8px; }
 .pin-bl { bottom: 8px; left: 8px; }
 .pin-br { bottom: 8px; right: 8px; }
 .bib-top { display: flex; justify-content: space-between; align-items: baseline; margin: 0.2rem 0.6rem 0; }
-.bib-brand { font-weight: 800; font-stretch: 125%; font-size: 0.9rem; color: var(--cobalt); }
-.bib-day { font-weight: 600; font-size: 0.85rem; color: var(--ink-2); }
+.bib-brand { font-weight: 800; font-stretch: 125%; font-size: 0.9rem; color: var(--bib-accent); }
+.bib-day { font-weight: 600; font-size: 0.85rem; color: #3d5a4f; }
 .bib-number {
   font-size: clamp(4.6rem, 24vw, 6.4rem);
   font-weight: 900; font-stretch: 125%; line-height: 0.95;
   letter-spacing: -0.02em; margin: 0.3rem 0 0.7rem; text-align: center;
 }
-.bib-unit { font-size: 0.28em; font-weight: 700; margin-left: 0.2em; letter-spacing: 0; color: var(--ink-2); }
-.lane { height: 14px; border: 2px solid var(--ink); border-radius: 999px; background: var(--fog); overflow: hidden; }
-.lane-fill { height: 100%; background: var(--hivis); border-right: 2px solid var(--ink); transition: width 0.5s ease; }
+.bib-unit { font-size: 0.28em; font-weight: 700; margin-left: 0.2em; letter-spacing: 0; color: #3d5a4f; }
+.lane { height: 14px; border: 2px solid var(--bib-ink); border-radius: 999px; background: #d9d3c1; overflow: hidden; }
+.lane-fill { height: 100%; background: var(--cobalt); border-right: 2px solid var(--bib-ink); transition: width 0.5s ease; }
 .lane-labels { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-top: 0.3rem; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin: 0.4rem 0 0; }
 .stats dt { color: var(--ink-2); font-size: 0.85rem; }

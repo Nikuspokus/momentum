@@ -44,7 +44,7 @@ const macros = computed(() =>
       <p class="muted">Ce que tu as mangé aujourd'hui</p>
     </header>
 
-    <section v-if="target" class="stack">
+    <section v-if="target" class="panel stack">
       <p class="big num" :class="{ over: left < 0 }">
         {{ Math.abs(Math.round(left)) }}<span class="unit"> kcal {{ left < 0 ? 'de trop' : 'restantes' }}</span>
       </p>
@@ -69,7 +69,7 @@ const macros = computed(() =>
     </button>
 
     <section v-if="grouped.length" class="stack">
-      <div v-for="g in grouped" :key="g.type">
+      <div v-for="g in grouped" :key="g.type" class="panel">
         <h2>{{ g.label }}</h2>
         <ul class="list">
           <li v-for="m in g.items" :key="m.id">

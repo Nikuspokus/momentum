@@ -15,10 +15,9 @@ const recent = computed(() => [...entries.value].reverse().slice(0, 8))
       <FeaturesBibCard />
       <FeaturesTodayChecklist />
       <FeaturesXpCard />
-      <FeaturesWeightForm />
-      <FeaturesWeightChart />
+      <section class="panel"><FeaturesWeightChart /></section>
 
-      <section>
+      <section class="panel">
         <h2>Dernières pesées</h2>
         <p v-if="!recent.length" class="muted">Aucune pesée pour l'instant. Ajoute la première ci-dessus.</p>
         <ul class="list">

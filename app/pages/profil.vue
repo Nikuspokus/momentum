@@ -35,10 +35,10 @@ const valid = computed(
 const nutrition = computed(() => (goal.value ? computeNutrition(goal.value, currentKg.value) : null))
 
 const ACTIVITIES = [
-  { value: '1.2', label: 'Sédentaire (bureau, peu de sport)' },
-  { value: '1.375', label: 'Légèrement actif (1 à 3 séances par semaine)' },
-  { value: '1.55', label: 'Actif (3 à 5 séances par semaine)' },
-  { value: '1.725', label: 'Très actif (6 à 7 séances par semaine)' },
+  { value: '1.2', label: 'Sédentaire (bureau)' },
+  { value: '1.375', label: 'Léger (1 à 3 séances/sem.)' },
+  { value: '1.55', label: 'Actif (3 à 5 séances/sem.)' },
+  { value: '1.725', label: 'Très actif (6 à 7 séances/sem.)' },
 ]
 
 async function save() {
@@ -103,7 +103,7 @@ async function save() {
       <button class="btn btn-primary btn-block" type="submit" :disabled="!valid || saving">Enregistrer</button>
     </form>
 
-    <section v-if="nutrition" class="stack">
+    <section v-if="nutrition" class="panel stack">
       <h2 style="margin: 0">Mon budget calorique</h2>
       <dl class="kv num">
         <div><dt>Métabolisme de base</dt><dd>{{ nutrition.bmr }} kcal</dd></div>
@@ -119,7 +119,7 @@ async function save() {
       </p>
     </section>
 
-    <section class="stack">
+    <section class="panel stack">
       <div class="row-between">
         <h2 style="margin: 0">Badges</h2>
         <span class="muted small num">Niveau {{ level }} · {{ xp }} points</span>
@@ -132,7 +132,7 @@ async function save() {
       </ul>
     </section>
 
-    <section class="stack">
+    <section class="panel stack">
       <h2 style="margin: 0">Installer l'application</h2>
       <p class="muted">
         Dans Chrome sur Android, ouvre le menu (les trois points) puis « Ajouter à l'écran d'accueil »

@@ -32,13 +32,13 @@ const withRoute = computed(() => entries.value.filter((w) => w.route && w.route.
     </section>
     <p v-else class="strong">Tu as terminé tout le plan. Bravo !</p>
 
-    <section class="stack">
+    <section class="panel stack">
       <div class="row-between">
         <h2 style="margin: 0">Progression</h2>
         <span class="muted small num">{{ doneCount }} / {{ PLAN.length }} séances · {{ fmtNum(totalDistanceKm, 1) }} km</span>
       </div>
       <div class="bar"><div class="bar-fill" :style="{ width: `${(doneCount / PLAN.length) * 100}%` }" /></div>
-      <button class="btn btn-quiet" type="button" @click="showPlan = !showPlan">
+      <button class="btn btn-line btn-block" type="button" @click="showPlan = !showPlan">
         {{ showPlan ? 'Masquer le plan' : 'Voir le plan sur 12 semaines' }}
       </button>
       <ul v-if="showPlan" class="list">
@@ -54,7 +54,7 @@ const withRoute = computed(() => entries.value.filter((w) => w.route && w.route.
       </ul>
     </section>
 
-    <section v-if="entries.length" class="stack">
+    <section v-if="entries.length" class="panel stack">
       <h2 style="margin: 0">Mes sorties</h2>
       <ul class="list">
         <li v-for="w in entries.slice(0, 10)" :key="w.id" class="outing">
@@ -72,7 +72,7 @@ const withRoute = computed(() => entries.value.filter((w) => w.route && w.route.
       </ul>
     </section>
 
-    <section v-if="withRoute.length" class="stack">
+    <section v-if="withRoute.length" class="panel stack">
       <h2 style="margin: 0">Parcours</h2>
       <div v-for="w in withRoute.slice(0, 3)" :key="w.id" class="stack">
         <p class="muted small">{{ formatDay(w.started_at) }} · {{ formatKm(w.distance_m) }}</p>

@@ -142,6 +142,15 @@ async function save() {
     </section>
 
     <section class="panel stack">
+      <h2 style="margin: 0">Ma balance</h2>
+      <h3>Importer depuis openScale</h3>
+      <FeaturesScaleImport />
+      <hr class="rule">
+      <h3>Lire en Bluetooth</h3>
+      <FeaturesScaleBluetooth />
+    </section>
+
+    <section class="panel stack">
       <h2 style="margin: 0">Apparence</h2>
       <div class="theme-seg" role="radiogroup" aria-label="Thème">
         <button

@@ -88,6 +88,49 @@ export const useWeightStore = defineStore('weight', () => {
     return true
   }
 
+  // Import par lot (CSV openScale) : ignore les mesures déjà présentes à la même minute
+  async function importMany(rows: ScaleRow[]) {
+    error.value = null
+    const minute = (iso: string) => iso.slice(0, 16)
+    const known = new Set(entries.value.map((e) => minute(new Date(e.measured_at).toISOString())))
+    const fresh = rows.filter((r) => !known.has(minute(r.measuredAt.toISOString())))
+    if (!fresh.length) return { added: 0, duplicates: rows.length }
+    const { data, error: err } = await supabase
+      .from('weigh_ins')
+      .insert(
+        fresh.map((r) => ({
+          weight_kg: r.weightKg,
+          measured_at: r.measuredAt.toISOString(),
+          body_fat_pct: r.fatPct,
+          water_pct: r.waterPct,
+          source: 'csv',
+        })),
+      )
+      .select()
+    if (err) {
+      error.value = err.message
+      return null
+    }
+    entries.value = [...entries.value, ...data].sort((a, b) => a.measured_at.localeCompare(b.measured_at))
+    return { added: data.length, duplicates: rows.length - fresh.length }
+  }
+
+  // Mesure lue en Bluetooth sur la balance
+  async function addFromScale(weightKg: number, fatPct: number | null) {
+    error.value = null
+    const { data, error: err } = await supabase
+      .from('weigh_ins')
+      .insert({ weight_kg: weightKg, body_fat_pct: fatPct, source: 'ble' })
+      .select()
+      .single()
+    if (err) {
+      error.value = err.message
+      return false
+    }
+    entries.value = [...entries.value, data].sort((a, b) => a.measured_at.localeCompare(b.measured_at))
+    return true
+  }
+
   async function remove(id: string) {
     const { error: err } = await supabase.from('weigh_ins').delete().eq('id', id)
     if (err) {
@@ -118,6 +161,6 @@ export const useWeightStore = defineStore('weight', () => {
   return {
     entries, goal, loaded, loading, error,
     latest, currentKg, lostKg, remainingKg, progressPct, bmi, weighedToday, weeklyTrendKg, etaWeeks,
-    load, add, remove, saveGoal,
+    load, add, importMany, addFromScale, remove, saveGoal,
   }
 })

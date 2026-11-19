@@ -68,6 +68,8 @@ const macros = computed(() =>
       <UiIcon name="plus" /> Ajouter un aliment
     </button>
 
+    <FeaturesMealIdeas />
+
     <section v-if="grouped.length" class="stack">
       <div v-for="g in grouped" :key="g.type" class="panel">
         <h2>{{ g.label }}</h2>

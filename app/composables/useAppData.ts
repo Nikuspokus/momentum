@@ -4,9 +4,10 @@ export function useAppData() {
   const meals = useMealsStore()
   const workouts = useWorkoutsStore()
   const strength = useStrengthStore()
+  const foodPrefs = useFoodPrefsStore()
 
   return useAsyncData('app-data', async () => {
-    await Promise.all([weight.load(), meals.load(), workouts.load(), strength.load()])
+    await Promise.all([weight.load(), meals.load(), workouts.load(), strength.load(), foodPrefs.load()])
     return true
   })
 }

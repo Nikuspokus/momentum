@@ -60,9 +60,12 @@ async function save() {
 
 <template>
   <div class="page">
-    <header class="page-head">
-      <h1>Profil</h1>
-      <p class="muted">{{ user?.email }}</p>
+    <header class="head">
+      <UiAvatar :size="64" />
+      <div class="page-head">
+        <h1>Profil</h1>
+        <p class="muted">{{ user?.email }}</p>
+      </div>
     </header>
 
     <form v-if="goal" class="panel stack" @submit.prevent="save">
@@ -152,6 +155,7 @@ async function save() {
 
 <style scoped>
 .page { display: grid; gap: 1.6rem; }
+.head { display: flex; align-items: center; gap: 1rem; }
 .kv { display: grid; gap: 0.5rem; margin: 0; }
 .kv div { display: flex; justify-content: space-between; border-bottom: 1px solid var(--fog); padding-bottom: 0.4rem; }
 .kv dt { color: var(--ink-2); }

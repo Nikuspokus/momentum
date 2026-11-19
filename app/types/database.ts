@@ -57,6 +57,18 @@ export type MealRow = {
   created_at: string
 }
 
+export type StrengthRow = {
+  id: string
+  user_id: string
+  plan_week: number | null
+  plan_session: number | null
+  template: string
+  duration_s: number
+  exercises_done: number
+  started_at: string
+  created_at: string
+}
+
 type Table<R extends Record<string, unknown>, Required extends keyof R> = {
   Row: R
   Insert: Pick<R, Required> & Partial<Omit<R, Required>>
@@ -71,6 +83,7 @@ export type Database = {
       weigh_ins: Table<WeighInRow, 'weight_kg'>
       workouts: Table<WorkoutRow, 'duration_s'>
       meals: Table<MealRow, 'label' | 'kcal'>
+      strength_sessions: Table<StrengthRow, 'template'>
     }
     Views: { [_ in never]: never }
     Functions: { [_ in never]: never }
@@ -88,3 +101,5 @@ export type WorkoutInsert = Omit<Database['public']['Tables']['workouts']['Inser
 }
 export type MealInsert = Database['public']['Tables']['meals']['Insert']
 export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snack'
+export type Strength = StrengthRow
+export type StrengthInsert = Database['public']['Tables']['strength_sessions']['Insert']

@@ -3,6 +3,7 @@ const tabs = [
   { to: '/', label: 'Accueil', icon: 'home' },
   { to: '/repas', label: 'Repas', icon: 'meal' },
   { to: '/course', label: 'Course', icon: 'track' },
+  { to: '/renfo', label: 'Renfo', icon: 'dumbbell' },
   { to: '/profil', label: 'Profil', icon: 'user' },
 ] as const
 </script>

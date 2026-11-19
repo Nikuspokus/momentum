@@ -89,11 +89,11 @@ a { color: var(--cobalt); }
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.tabs-inner { max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+.tabs-inner { max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
 .tab {
   display: grid; justify-items: center; gap: 0.15rem;
   padding: 0.6rem 0 0.5rem; min-height: var(--tabs-h);
-  color: var(--ink-2); text-decoration: none; font-size: 0.78rem; font-weight: 600;
+  color: var(--ink-2); text-decoration: none; font-size: 0.74rem; font-weight: 600;
 }
 .tab.router-link-exact-active, .tab.router-link-active { color: var(--cobalt); }
 .tab.router-link-exact-active svg, .tab.router-link-active svg { stroke-width: 2.4; }

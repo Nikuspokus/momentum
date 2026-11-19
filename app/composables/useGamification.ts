@@ -3,12 +3,14 @@ export function useGamification() {
   const weight = useWeightStore()
   const meals = useMealsStore()
   const workouts = useWorkoutsStore()
+  const strength = useStrengthStore()
 
   const activeDays = computed(() => {
     const days = new Set<string>()
     weight.entries.forEach((e) => days.add(localDayKey(e.measured_at)))
     meals.entries.forEach((m) => days.add(localDayKey(m.eaten_at)))
     workouts.entries.forEach((w) => days.add(localDayKey(w.started_at)))
+    strength.entries.forEach((s) => days.add(localDayKey(s.started_at)))
     return days
   })
 
@@ -32,6 +34,7 @@ export function useGamification() {
       weight.entries.length * 10 +
       mealDays.value * 5 +
       workouts.entries.length * 50 +
+      strength.entries.length * 40 +
       Math.round(workouts.totalDistanceKm * 10),
   )
 
@@ -58,6 +61,8 @@ export function useGamification() {
       { id: 'lost-1', label: '1 kg perdu', hint: 'Perds 1 kg', earned: lost >= 1 },
       { id: 'lost-5', label: '5 kg perdus', hint: 'Perds 5 kg', earned: lost >= 5 },
       { id: 'lost-10', label: '10 kg perdus', hint: 'Perds 10 kg', earned: lost >= 10 },
+      { id: 'first-strength', label: 'Premier renfo', hint: 'Termine une séance de renforcement', earned: strength.entries.length >= 1 },
+      { id: 'strength-10', label: '10 séances de renfo', hint: 'Termine 10 séances de renforcement', earned: strength.entries.length >= 10 },
       { id: 'runs-10', label: '10 séances', hint: 'Termine 10 séances', earned: runs >= 10 },
       { id: 'km-25', label: '25 km parcourus', hint: 'Cumule 25 km', earned: workouts.totalDistanceKm >= 25 },
       { id: 'goal', label: 'Objectif atteint', hint: 'Atteins ton poids cible', earned: !!weight.goal && weight.remainingKg === 0 && weight.entries.length > 0 },

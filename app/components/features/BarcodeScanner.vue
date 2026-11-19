@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Lecture de code-barres avec l'API native BarcodeDetector (Chrome sur Android).
+// Web : API BarcodeDetector (Chrome sur Android). Application Android : scanner natif Google ML Kit.
 const emit = defineEmits<{ detected: [code: string]; close: [] }>()
 
 type Detector = { detect: (src: HTMLVideoElement) => Promise<Array<{ rawValue: string }>> }
@@ -12,9 +12,46 @@ let stream: MediaStream | null = null
 let raf = 0
 let stopped = false
 
+const native = isNative()
+const status = ref<string | null>(null)
+const busy = ref(false)
 const supported = typeof window !== 'undefined' && 'BarcodeDetector' in window
 
+// Scanner natif : interface de scan fournie par Google (module installé une seule fois), sans permission caméra
+async function scanNative() {
+  if (busy.value) return
+  busy.value = true
+  error.value = null
+  try {
+    const { BarcodeScanner, BarcodeFormat, GoogleBarcodeScannerModuleInstallState: State } = await import('@capacitor-mlkit/barcode-scanning')
+    const { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable()
+    if (!available) {
+      status.value = 'Installation du module de lecture Google (une seule fois)…'
+      await new Promise<void>((resolve, reject) => {
+        BarcodeScanner.addListener('googleBarcodeScannerModuleInstallProgress', (e) => {
+          if (e.state === State.COMPLETED) resolve()
+          else if (e.state === State.FAILED || e.state === State.CANCELED) reject(new Error("L'installation du module de lecture a échoué."))
+        }).then(() => BarcodeScanner.installGoogleBarcodeScannerModule()).catch(reject)
+      })
+      status.value = null
+    }
+    const { barcodes } = await BarcodeScanner.scan({
+      formats: [BarcodeFormat.Ean13, BarcodeFormat.Ean8, BarcodeFormat.UpcA, BarcodeFormat.UpcE],
+    })
+    const code = barcodes[0]?.rawValue
+    if (code) emit('detected', code)
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : ''
+    // Fermeture volontaire du scanner : pas une erreur
+    if (!/cancel/i.test(msg)) error.value = msg || 'Le scanner ne démarre pas. Saisis le code à la main.'
+  } finally {
+    status.value = null
+    busy.value = false
+  }
+}
+
 async function start() {
+  if (native) return scanNative()
   if (!supported) return
   try {
     stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
@@ -57,7 +94,14 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="stack">
-    <div v-if="supported && !error" class="viewfinder">
+    <template v-if="native">
+      <button class="btn btn-primary btn-block" type="button" :disabled="busy" @click="scanNative">
+        {{ busy ? 'Scanner ouvert…' : 'Scanner un code-barres' }}
+      </button>
+      <p v-if="status" class="muted small" role="status">{{ status }}</p>
+      <p v-if="error" class="error small">{{ error }}</p>
+    </template>
+    <div v-else-if="supported && !error" class="viewfinder">
       <video ref="video" playsinline muted />
       <span class="frame" />
     </div>

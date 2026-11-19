@@ -88,6 +88,13 @@ export type ReminderPrefsRow = {
   updated_at: string
 }
 
+export type DailyStepsRow = {
+  user_id: string
+  day: string
+  steps: number
+  updated_at: string
+}
+
 type Table<R extends Record<string, unknown>, Required extends keyof R> = {
   Row: R
   Insert: Pick<R, Required> & Partial<Omit<R, Required>>
@@ -104,6 +111,7 @@ export type Database = {
       meals: Table<MealRow, 'label' | 'kcal'>
       food_prefs: Table<FoodPrefsRow, never>
       reminder_prefs: Table<ReminderPrefsRow, never>
+      daily_steps: Table<DailyStepsRow, 'day' | 'steps'>
       strength_sessions: Table<StrengthRow, 'template'>
     }
     Views: { [_ in never]: never }

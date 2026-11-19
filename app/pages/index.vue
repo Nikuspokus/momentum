@@ -25,8 +25,9 @@ const recent = computed(() => [...entries.value].reverse().slice(0, 8))
     <p v-if="error" class="error">{{ error }}</p>
     <p v-if="loading" class="muted">Chargement…</p>
     <template v-else>
-      <FeaturesBibCard />
+      <FeaturesStepsCard />
       <FeaturesTodayChecklist />
+      <FeaturesBibCard />
       <FeaturesXpCard />
       <section class="panel"><FeaturesWeightChart /></section>
 

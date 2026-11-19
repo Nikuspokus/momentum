@@ -135,3 +135,8 @@ input:focus, select:focus { border-color: var(--cobalt); outline: 2px solid var(
 .page-head h1::after { content: ''; display: block; width: 44px; height: 5px; margin-top: 0.5rem; background: var(--hivis); border-radius: 3px; }
 .panel h2 { margin-bottom: 0.4rem; }
 .panel .list > li:first-child { border-top: 0; padding-top: 0.3rem; }
+
+/* Responsive : les grilles ne doivent jamais dépasser la largeur de l'écran */
+html, body { overflow-x: hidden; max-width: 100%; }
+.shell, .page, .stack, .shell-inner, .login, .sheet, .legal { grid-template-columns: minmax(0, 1fr); }
+.shell > *, .page > *, .stack > *, .shell-inner > * { min-width: 0; }

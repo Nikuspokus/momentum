@@ -56,7 +56,7 @@ async function submit() {
         <div class="grow">
           <p class="title">{{ doneToday ? 'Séance faite' : nextSession ? 'Séance du jour' : 'Plan terminé' }}</p>
           <p v-if="nextSession" class="muted small">
-            Semaine {{ nextSession.week }}, séance {{ nextSession.session }} · {{ formatMinutes(nextSession.totalSec) }}
+            Sem. {{ nextSession.week }}, séance {{ nextSession.session }} · <span class="nw">{{ formatMinutes(nextSession.totalSec) }}</span>
           </p>
         </div>
         <NuxtLink v-if="nextSession && !doneToday" to="/course" class="btn btn-hivis go">Démarrer</NuxtLink>
@@ -87,6 +87,7 @@ async function submit() {
   border: 2px solid var(--ink-2); display: grid; place-items: center; color: var(--ink);
 }
 .tick.on { background: var(--hivis); border-color: var(--hivis); color: var(--on-accent); }
+.nw { white-space: nowrap; }
 .weigh { display: grid; gap: 0.4rem; }
 .go { align-self: center; min-height: 40px; padding: 0.4rem 0.9rem; font-size: 0.92rem; }
 </style>

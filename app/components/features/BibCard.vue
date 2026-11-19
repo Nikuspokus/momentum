@@ -80,9 +80,9 @@ const dayCount = computed(() => {
 .bib-brand { font-weight: 800; font-stretch: 125%; font-size: 0.9rem; color: var(--bib-accent); }
 .bib-day { font-weight: 600; font-size: 0.85rem; color: #3d5a4f; }
 .bib-number {
-  font-size: clamp(4.6rem, 24vw, 6.4rem);
+  font-size: min(19vw, 5.6rem);
   font-weight: 900; font-stretch: 125%; line-height: 0.95;
-  letter-spacing: -0.02em; margin: 0.3rem 0 0.7rem; text-align: center;
+  letter-spacing: -0.02em; margin: 0.3rem 0 0.7rem; text-align: center; white-space: nowrap;
 }
 .bib-unit { font-size: 0.28em; font-weight: 700; margin-left: 0.2em; letter-spacing: 0; color: #3d5a4f; }
 .lane { height: 14px; border: 2px solid var(--bib-ink); border-radius: 999px; background: #d9d3c1; overflow: hidden; }

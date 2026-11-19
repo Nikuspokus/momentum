@@ -11,5 +11,9 @@ const { error } = storeToRefs(auth)
       Continuer avec Google
     </button>
     <p v-if="error" class="error">{{ error }}</p>
+    <p class="muted small">
+      <NuxtLink to="/privacy">Confidentialité</NuxtLink> ·
+      <NuxtLink to="/terms">Conditions d'utilisation</NuxtLink>
+    </p>
   </main>
 </template>

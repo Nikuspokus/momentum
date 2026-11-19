@@ -16,7 +16,11 @@ export default defineNuxtConfig({
       ],
     },
   },
-  nitro: { preset: 'github_pages' },
+  nitro: {
+    preset: 'github_pages',
+    // Pages légales générées en vrais fichiers HTML (réponse HTTP 200 sur GitHub Pages)
+    prerender: { routes: ['/login', '/privacy', '/terms'] },
+  },
   runtimeConfig: {
     public: {
       // L'URL et la clé « publishable » sont publiques par conception :

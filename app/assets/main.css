@@ -24,6 +24,10 @@ h2 { font-size: 1rem; margin-bottom: 0.6rem; }
 .page, .login { max-width: 480px; margin: 0 auto; padding: 1rem; }
 .login { min-height: 100dvh; display: grid; align-content: center; gap: 1rem; text-align: center; }
 
+.legal h2 { margin-top: 1.4rem; }
+.legal p, .legal li { color: var(--text); }
+a { color: var(--accent); }
+
 .topbar { display: flex; justify-content: space-between; align-items: center; }
 .card { background: var(--card); border-radius: var(--radius); padding: 1rem; margin-top: 1rem; }
 .muted { color: var(--muted); }

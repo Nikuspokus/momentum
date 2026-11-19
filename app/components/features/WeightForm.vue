@@ -17,20 +17,15 @@ async function submit() {
 </script>
 
 <template>
-  <form class="card form" @submit.prevent="submit">
-    <label for="weight-input">Pesée du jour (kg)</label>
+  <form class="panel stack" @submit.prevent="submit">
+    <label for="weight-input">Ajouter une pesée (kg)</label>
     <div class="row">
       <input
-        id="weight-input"
-        v-model="value"
-        type="text"
-        inputmode="decimal"
-        placeholder="ex. 121,4"
-        autocomplete="off"
+        id="weight-input" v-model="value" type="text" inputmode="decimal"
+        placeholder="par exemple 121,4" autocomplete="off"
       >
-      <button class="btn btn-primary" type="submit" :disabled="!valid || saving">
-        Ajouter
-      </button>
+      <button class="btn btn-primary" type="submit" :disabled="!valid || saving">Ajouter</button>
     </div>
+    <p v-if="weight.error" class="error small">{{ weight.error }}</p>
   </form>
 </template>

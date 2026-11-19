@@ -1,52 +1,40 @@
 <script setup lang="ts">
-const auth = useAuthStore()
+await useAppData()
+
 const weight = useWeightStore()
-const { user } = storeToRefs(auth)
 const { entries, loading, error } = storeToRefs(weight)
 
-await useAsyncData('weight', async () => {
-  await weight.load()
-  return true
-})
-
-const recent = computed(() => [...entries.value].reverse().slice(0, 10))
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
-}
+const recent = computed(() => [...entries.value].reverse().slice(0, 8))
 </script>
 
 <template>
-  <main class="page">
-    <header class="topbar">
-      <h1>Momentum</h1>
-      <button class="btn btn-ghost" @click="auth.signOut()">
-        Déconnexion
-      </button>
-    </header>
-    <p class="muted small">{{ user?.email }}</p>
-
+  <div class="page">
     <p v-if="error" class="error">{{ error }}</p>
     <p v-if="loading" class="muted">Chargement…</p>
-
     <template v-else>
-      <FeaturesProgressSummary />
+      <FeaturesBibCard />
+      <FeaturesTodayChecklist />
+      <FeaturesXpCard />
       <FeaturesWeightForm />
       <FeaturesWeightChart />
 
-      <section class="card">
+      <section>
         <h2>Dernières pesées</h2>
-        <p v-if="!recent.length" class="muted">Aucune pesée pour l'instant.</p>
-        <ul class="history">
+        <p v-if="!recent.length" class="muted">Aucune pesée pour l'instant. Ajoute la première ci-dessus.</p>
+        <ul class="list">
           <li v-for="e in recent" :key="e.id">
-            <span>{{ formatDate(e.measured_at) }}</span>
-            <strong>{{ e.weight_kg.toFixed(1) }} kg</strong>
-            <button class="btn btn-ghost small" @click="weight.remove(e.id)">
-              Supprimer
+            <span class="grow">{{ formatDay(e.measured_at) }}</span>
+            <strong class="num">{{ fmtNum(e.weight_kg) }} kg</strong>
+            <button class="btn btn-quiet" type="button" :aria-label="`Supprimer la pesée du ${formatDay(e.measured_at)}`" @click="weight.remove(e.id)">
+              <UiIcon name="close" :size="18" />
             </button>
           </li>
         </ul>
       </section>
     </template>
-  </main>
+  </div>
 </template>
+
+<style scoped>
+.page { display: grid; gap: 1.6rem; }
+</style>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
+definePageMeta({ layout: 'blank' })
 useHead({ title: "Conditions d'utilisation – Momentum" })
 </script>
 
 <template>
-  <main class="page legal">
+  <main class="legal">
     <h1>Conditions d'utilisation</h1>
     <p class="muted small">Dernière mise à jour : 19 novembre 2026</p>
 

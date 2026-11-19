@@ -5,8 +5,9 @@ const DAY_MS = 86_400_000
 export const useWeightStore = defineStore('weight', () => {
   const supabase = useSupabase()
 
-  const entries = ref<WeighIn[]>([]) // triées de la plus ancienne à la plus récente
+  const entries = ref<WeighIn[]>([]) // de la plus ancienne à la plus récente
   const goal = ref<Goal | null>(null)
+  const loaded = ref(false)
   const loading = ref(false)
   const error = ref<string | null>(null)
 
@@ -25,8 +26,12 @@ export const useWeightStore = defineStore('weight', () => {
     const h = goal.value ? goal.value.height_cm / 100 : 0
     return h > 0 && currentKg.value ? currentKg.value / (h * h) : 0
   })
+  const weighedToday = computed(() => {
+    const today = localDayKey(new Date())
+    return entries.value.some((e) => localDayKey(e.measured_at) === today)
+  })
 
-  // Tendance en kg/semaine sur les 28 derniers jours (première vs dernière pesée de la fenêtre)
+  // Tendance en kg/semaine sur les 28 derniers jours
   const weeklyTrendKg = computed(() => {
     if (entries.value.length < 2) return 0
     const last = entries.value[entries.value.length - 1]!
@@ -41,7 +46,8 @@ export const useWeightStore = defineStore('weight', () => {
     weeklyTrendKg.value < -0.05 ? Math.ceil(remainingKg.value / -weeklyTrendKg.value) : null,
   )
 
-  async function load() {
+  async function load(force = false) {
+    if (loaded.value && !force) return
     loading.value = true
     error.value = null
     try {
@@ -55,11 +61,11 @@ export const useWeightStore = defineStore('weight', () => {
       if (goalRes.data) {
         goal.value = goalRes.data
       } else {
-        // Première connexion : on crée l'objectif par défaut (valeurs par défaut SQL)
         const created = await supabase.from('goals').insert({}).select().single()
         if (created.error) throw created.error
         goal.value = created.data
       }
+      loaded.value = true
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Erreur de chargement'
     } finally {
@@ -91,9 +97,27 @@ export const useWeightStore = defineStore('weight', () => {
     entries.value = entries.value.filter((e) => e.id !== id)
   }
 
+  async function saveGoal(patch: Partial<Omit<Goal, 'user_id' | 'created_at'>>) {
+    const userId = useAuthStore().user?.id
+    if (!userId) return false
+    error.value = null
+    const { data, error: err } = await supabase
+      .from('goals')
+      .update(patch)
+      .eq('user_id', userId)
+      .select()
+      .single()
+    if (err) {
+      error.value = err.message
+      return false
+    }
+    goal.value = data
+    return true
+  }
+
   return {
-    entries, goal, loading, error,
-    latest, currentKg, lostKg, remainingKg, progressPct, bmi, weeklyTrendKg, etaWeeks,
-    load, add, remove,
+    entries, goal, loaded, loading, error,
+    latest, currentKg, lostKg, remainingKg, progressPct, bmi, weighedToday, weeklyTrendKg, etaWeeks,
+    load, add, remove, saveGoal,
   }
 })

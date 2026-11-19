@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ name: string; size?: number }>(), { size: 24 })
+const props = withDefaults(defineProps<{ name: string; size?: number; filled?: boolean }>(), { size: 24, filled: false })
 
 const PATHS: Record<string, string> = {
   home: 'M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
@@ -12,6 +12,7 @@ const PATHS: Record<string, string> = {
   close: 'M6 6l12 12M18 6L6 18',
   scan: 'M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10',
   search: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-4.5-4.5',
+  star: 'M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.7 1-5.9L3.5 9.7l5.9-.8z',
   flame: 'M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z',
 }
 
@@ -20,7 +21,7 @@ const path = computed(() => PATHS[props.name] ?? '')
 
 <template>
   <svg
-    :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    :width="size" :height="size" viewBox="0 0 24 24" :fill="filled ? 'currentColor' : 'none'" stroke="currentColor"
     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
   >
     <path :d="path" />

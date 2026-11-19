@@ -6,6 +6,7 @@ export type FoodHit = {
   brand: string
   per100: { kcal: number; protein: number; carbs: number; fat: number }
   servingG: number | null
+  packG: number | null
 }
 
 type OffProduct = {
@@ -13,10 +14,11 @@ type OffProduct = {
   product_name?: string
   brands?: string
   serving_quantity?: number | string
+  product_quantity?: number | string
   nutriments?: Record<string, number | string | undefined>
 }
 
-const FIELDS = 'code,product_name,brands,nutriments,serving_quantity'
+const FIELDS = 'code,product_name,brands,nutriments,serving_quantity,product_quantity'
 
 function toHit(p: OffProduct): FoodHit | null {
   const n = p.nutriments ?? {}
@@ -28,6 +30,7 @@ function toHit(p: OffProduct): FoodHit | null {
         : NaN
   if (!p.product_name || !Number.isFinite(kcal)) return null
   const serving = Number(p.serving_quantity)
+  const pack = Number(p.product_quantity)
   return {
     code: p.code ?? '',
     name: p.product_name,
@@ -39,6 +42,7 @@ function toHit(p: OffProduct): FoodHit | null {
       fat: Number(n['fat_100g'] ?? 0) || 0,
     },
     servingG: Number.isFinite(serving) && serving > 0 ? serving : null,
+    packG: Number.isFinite(pack) && pack > 0 ? pack : null,
   }
 }
 

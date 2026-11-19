@@ -95,6 +95,18 @@ export type DailyStepsRow = {
   updated_at: string
 }
 
+export type SavedMealRow = {
+  id: string
+  user_id: string
+  label: string
+  grams: number
+  kcal: number
+  protein_g: number
+  carbs_g: number
+  fat_g: number
+  created_at: string
+}
+
 type Table<R extends Record<string, unknown>, Required extends keyof R> = {
   Row: R
   Insert: Pick<R, Required> & Partial<Omit<R, Required>>
@@ -112,6 +124,7 @@ export type Database = {
       food_prefs: Table<FoodPrefsRow, never>
       reminder_prefs: Table<ReminderPrefsRow, never>
       daily_steps: Table<DailyStepsRow, 'day' | 'steps'>
+      saved_meals: Table<SavedMealRow, 'label' | 'kcal'>
       strength_sessions: Table<StrengthRow, 'template'>
     }
     Views: { [_ in never]: never }
@@ -134,3 +147,4 @@ export type Strength = StrengthRow
 export type StrengthInsert = Database['public']['Tables']['strength_sessions']['Insert']
 export type FoodPrefs = FoodPrefsRow
 export type ReminderPrefs = ReminderPrefsRow
+export type SavedMeal = SavedMealRow

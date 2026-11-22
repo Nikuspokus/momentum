@@ -7,9 +7,10 @@ export function useAppData() {
   const foodPrefs = useFoodPrefsStore()
   const steps = useStepsStore()
   const savedMeals = useSavedMealsStore()
+  const activity = useActivityStore()
 
   return useAsyncData('app-data', async () => {
-    await Promise.all([weight.load(), meals.load(), workouts.load(), strength.load(), foodPrefs.load(), steps.load(), savedMeals.load()])
+    await Promise.all([weight.load(), meals.load(), workouts.load(), strength.load(), foodPrefs.load(), steps.load(), savedMeals.load(), activity.load()])
     return true
   })
 }

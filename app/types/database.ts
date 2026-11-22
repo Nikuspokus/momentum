@@ -1,7 +1,7 @@
 // Types des tables Supabase utilisées par l'app (écrits à la main d'après le schéma)
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
-export type RoutePoint = [number, number] // [latitude, longitude]
+export type RoutePoint = [number, number] | [number, number, number] // [latitude, longitude, secondes écoulées (sorties récentes)]
 
 export type GoalRow = {
   user_id: string
@@ -107,6 +107,12 @@ export type SavedMealRow = {
   created_at: string
 }
 
+export type ActivitySlotRow = {
+  user_id: string
+  slot_start: string
+  steps: number
+}
+
 type Table<R extends Record<string, unknown>, Required extends keyof R> = {
   Row: R
   Insert: Pick<R, Required> & Partial<Omit<R, Required>>
@@ -125,6 +131,7 @@ export type Database = {
       reminder_prefs: Table<ReminderPrefsRow, never>
       daily_steps: Table<DailyStepsRow, 'day' | 'steps'>
       saved_meals: Table<SavedMealRow, 'label' | 'kcal'>
+      activity_slots: Table<ActivitySlotRow, 'slot_start' | 'steps'>
       strength_sessions: Table<StrengthRow, 'template'>
     }
     Views: { [_ in never]: never }

@@ -73,7 +73,10 @@ const withRoute = computed(() => entries.value.filter((w) => w.route && w.route.
     </section>
 
     <section v-if="withRoute.length" class="panel stack">
-      <h2 style="margin: 0">Parcours</h2>
+      <div class="row-between">
+        <h2 style="margin: 0">Parcours</h2>
+        <NuxtLink to="/activite" class="small">Carte et détails</NuxtLink>
+      </div>
       <div v-for="w in withRoute.slice(0, 3)" :key="w.id" class="stack">
         <p class="muted small">{{ formatDay(w.started_at) }} · {{ formatKm(w.distance_m) }}</p>
         <FeaturesRouteMap :route="w.route!" />

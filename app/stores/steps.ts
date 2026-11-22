@@ -84,15 +84,32 @@ export const useStepsStore = defineStore('steps', () => {
         const keys = new Set(rows.map((r) => r.day))
         entries.value = [...rows, ...entries.value.filter((e) => !keys.has(e.day))]
       }
-      // Diagnostic : ce que Health Connect renvoie réellement pour aujourd'hui
+      // Relevés détaillés des 3 derniers jours : répartis par créneaux de 30 min pour le graphique d'activité
+      const from = new Date()
+      from.setHours(0, 0, 0, 0)
+      from.setDate(from.getDate() - 2)
+      const raw = await Health.readSamples({
+        dataType: 'steps', startDate: from.toISOString(), endDate: new Date().toISOString(), limit: 5000,
+      })
+      const slots = distributeSamples(raw.samples)
+      // Plusieurs sources peuvent se recouper : on recale chaque jour sur le total dédoublonné de Health Connect
+      const dayTotals = new Map(rows.map((r) => [r.day, r.steps]))
+      const daySums = new Map<string, number>()
+      for (const [k, v] of slots) daySums.set(localDayKey(new Date(k)), (daySums.get(localDayKey(new Date(k))) ?? 0) + v)
+      const slotRows = [...slots].map(([k, v]) => {
+        const day = localDayKey(new Date(k))
+        const ratio = daySums.get(day)! > 0 && dayTotals.has(day) ? dayTotals.get(day)! / daySums.get(day)! : 1
+        return { user_id: userId, slot_start: new Date(k).toISOString(), steps: Math.min(20000, Math.round(v * ratio)) }
+      }).filter((r) => r.steps > 0)
+      if (slotRows.length) {
+        const { error: slotErr } = await supabase.from('activity_slots').upsert(slotRows)
+        if (!slotErr) useActivityStore().merge(new Map(slotRows.map((r) => [new Date(r.slot_start).getTime(), r.steps])))
+      }
+
       const todayKey = localDayKey(new Date())
       const todayTotal = rows.find((r) => r.day === todayKey)?.steps ?? 0
-      const midnight = new Date()
-      midnight.setHours(0, 0, 0, 0)
-      const raw = await Health.readSamples({
-        dataType: 'steps', startDate: midnight.toISOString(), endDate: new Date().toISOString(), limit: 500,
-      })
-      const sources = [...new Set(raw.samples.map((x) => x.sourceName ?? x.sourceId ?? 'inconnue'))]
+      const todayRaw = raw.samples.filter((x) => localDayKey(new Date(x.startDate)) === todayKey)
+      const sources = [...new Set(todayRaw.map((x) => x.sourceName ?? x.sourceId ?? 'inconnue'))]
       diag.value = sources.length
         ? `Health Connect : ${todayTotal} pas aujourd'hui · sources : ${sources.join(', ')}`
         : "Health Connect ne contient aucun pas aujourd'hui : aucune app n'y enregistre tes pas. Ouvre Health Connect > Données et accès > Pas pour choisir la source."

@@ -82,7 +82,7 @@ export function useRunSession(segments: Segment[]) {
       }
       distanceM.value += d
     }
-    route.value.push([Number(cur.lat.toFixed(5)), Number(cur.lng.toFixed(5))])
+    route.value.push([Number(cur.lat.toFixed(5)), Number(cur.lng.toFixed(5)), Math.round(elapsed.value)])
     last = cur
   }
 

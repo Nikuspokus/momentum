@@ -75,6 +75,7 @@ async function save() {
       <button class="btn btn-line btn-block" type="button" @click="open">Saisir mes pas</button>
       <p class="muted small">Le total est celui de ta montre ou de ton téléphone ; sans saisie, il est estimé à partir de tes courses suivies. La lecture automatique est disponible dans l'app Android.</p>
     </template>
+    <NuxtLink to="/activite" class="btn btn-line btn-block">Voir l'activité heure par heure</NuxtLink>
     <p v-if="steps.error" class="error small">{{ steps.error }}</p>
   </section>
 </template>

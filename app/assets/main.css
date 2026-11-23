@@ -1,44 +1,49 @@
-/* Momentum — thème « jour de course » : brouillard du matin, encre marine, cobalt, jaune haute visibilité */
+/* Momentum — noir et blanc cassé, accent jaune-vert #C8F31D */
 :root {
   color-scheme: light;
-  --fog: #edf0ea;        /* fond sauge très clair */
+  --fog: #f6f6f2;        /* fond blanc cassé */
   --paper: #ffffff;      /* cartes */
-  --ink: #16221d;        /* texte */
-  --ink-2: #55625a;      /* texte secondaire (contraste 6,4:1) */
-  --line: #d3dacf;
-  --cobalt: #1e5b4a;     /* vert forêt (accent principal) */
-  --cobalt-dark: #164536;
-  --hivis: #f0c24b;      /* jaune miel, touches et réussites */
-  --on-accent: #ffffff;  /* texte sur le vert forêt */
-  --on-hivis: #2a2008;   /* texte sur le jaune */
+  --ink: #0b0c0e;        /* texte */
+  --ink-2: #565b57;      /* texte secondaire */
+  --line: #e1e3dc;
+  --cobalt: #0b0c0e;     /* accent principal : noir (boutons primaires) */
+  --cobalt-dark: #2a2d2b;
+  --hivis: #c8f31d;      /* jaune-vert : fond uniquement, jamais en texte sur clair */
+  --on-accent: #f6f6f2;  /* texte sur le noir */
+  --on-hivis: #10140a;   /* texte sur le jaune-vert */
   --bib: #ffffff;        /* dossard */
-  --bib-ink: #16221d;
-  --bib-accent: #1e5b4a;
+  --bib-ink: #0b0c0e;
+  --bib-accent: #0b0c0e;
   --ok: #1e7a4f;
   --bad: #b42318;
+  --halo: 0.38;          /* opacité du halo jaune-vert */
+  --dots: rgb(11 12 14 / 0.1);
+  --tint: rgb(200 243 29 / 0.07);
   --radius: 14px;
   --radius-sm: 10px;
   --tabs-h: 64px;
 }
 
-/* Thème sombre : ardoise et menthe */
+/* Thème sombre */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --fog: #12171e;
-  --paper: #1b222c;
-  --ink: #eef2f6;
-  --ink-2: #a3afbd;
-  --line: #303a47;
-  --cobalt: #7dd3b0;
-  --cobalt-dark: #5fbf99;
-  --hivis: #e8c468;
-  --on-accent: #0d1713;
-  --on-hivis: #1a1405;
-  --bib: #eef2f6;
-  --bib-ink: #12171e;
-  --bib-accent: #1d7a5c;
+  --fog: #08090b;
+  --paper: #121418;
+  --ink: #f4f5f0;
+  --ink-2: #9ea49c;
+  --line: #252a2e;
+  --cobalt: #c8f31d;
+  --cobalt-dark: #a9d111;
+  --hivis: #c8f31d;
+  --on-accent: #0b0f02;
+  --on-hivis: #0b0f02;
+  --bib: #f4f5f0;
+  --bib-ink: #08090b;
+  --bib-accent: #c8f31d;
   --ok: #4fd08f;
   --bad: #ff7a6b;
+  --halo: 0.13;
+  --dots: rgb(244 245 240 / 0.07);
 }
 
 * { box-sizing: border-box; }
@@ -46,20 +51,26 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--fog);
+  background-color: var(--fog);
+  /* Halo jaune-vert en haut à droite + grille de points de 22 px */
+  background-image:
+    radial-gradient(ellipse 70% 45% at 100% 0%, rgb(200 243 29 / var(--halo)), transparent 70%),
+    radial-gradient(circle, var(--dots) 1px, transparent 1.3px);
+  background-size: auto, 22px 22px;
+  background-attachment: fixed;
   color: var(--ink);
-  font-family: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.45;
   -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3 { margin: 0; line-height: 1.1; }
-h1 { font-size: 1.9rem; font-weight: 800; font-stretch: 118%; letter-spacing: -0.01em; }
-h2 { font-size: 1.15rem; font-weight: 800; font-stretch: 112%; margin-bottom: 0.6rem; }
+h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.6rem; }
 h3 { font-size: 1rem; font-weight: 700; }
 p { margin: 0; }
-a { color: var(--cobalt); }
+a { color: var(--cobalt); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 ::placeholder { color: var(--ink-2); opacity: 0.75; }
 
 .muted { color: var(--ink-2); }
@@ -99,7 +110,7 @@ a { color: var(--cobalt); }
 .tab.router-link-exact-active svg, .tab.router-link-active svg { stroke-width: 2.4; }
 
 /* Surfaces */
-.panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
+.panel { background-color: var(--paper); background-image: linear-gradient(160deg, var(--tint), transparent 65%); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 /* Boutons et champs */

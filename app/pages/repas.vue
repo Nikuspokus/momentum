@@ -100,8 +100,8 @@ const macros = computed(() =>
 
 <style scoped>
 .shell-inner { display: grid; gap: 1.4rem; }
-.big { font-size: 2.6rem; font-weight: 900; font-stretch: 122%; line-height: 1; letter-spacing: -0.02em; }
+.big { font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 .big.over { color: var(--bad); }
-.unit { font-size: 1rem; font-weight: 600; font-stretch: 100%; letter-spacing: 0; color: var(--ink-2); }
+.unit { font-size: 1rem; font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
 .macros { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.7rem; }
 </style>

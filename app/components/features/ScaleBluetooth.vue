@@ -113,6 +113,6 @@ onBeforeUnmount(disconnect)
 
 <style scoped>
 .strong { font-weight: 700; }
-.reading { font-size: 3rem; font-weight: 900; font-stretch: 122%; line-height: 1; }
-.unit { font-size: 1rem; font-weight: 600; font-stretch: 100%; color: var(--ink-2); }
+.reading { font-size: 3rem; font-weight: 800; line-height: 1; }
+.unit { font-size: 1rem; font-weight: 600; color: var(--ink-2); }
 </style>

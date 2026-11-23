@@ -88,7 +88,7 @@ async function save() {
 .arc { fill: none; stroke: var(--cobalt); stroke-width: 11; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
 .big { min-width: 0; }
 .label { margin: 0; color: var(--ink-2); font-size: 0.9rem; }
-.n { margin: 0.1rem 0; font-size: min(11vw, 2.8rem); font-weight: 800; font-stretch: 110%; line-height: 1; letter-spacing: -0.02em; }
+.n { margin: 0.1rem 0; font-size: min(11vw, 2.8rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 .bars { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.4rem; height: 5.5rem; align-items: end; }
 .col { display: grid; grid-template-rows: 1fr auto; gap: 0.25rem; height: 100%; justify-items: center; text-align: center; }
 .bar-wrap { width: 100%; display: flex; align-items: flex-end; }

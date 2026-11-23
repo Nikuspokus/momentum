@@ -1,6 +1,6 @@
 export type ThemePref = 'auto' | 'light' | 'dark'
 
-const COLORS = { light: '#1E5B4A', dark: '#12171E' } as const
+const COLORS = { light: '#F6F6F2', dark: '#08090B' } as const
 
 // Préférence de thème : « auto » suit le réglage du téléphone, sinon clair ou sombre forcé.
 export function useTheme() {

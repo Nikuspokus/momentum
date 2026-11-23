@@ -24,7 +24,7 @@ export default defineNuxtConfig({
       ],
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-        { name: 'theme-color', content: '#1E5B4A' },
+        { name: 'theme-color', content: '#F6F6F2' },
         { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'description', content: 'Suivi du poids, de la course et de la nutrition' },
       ],
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap',
         },
         { rel: 'manifest', href: `${BASE}manifest.webmanifest` },
         { rel: 'icon', type: 'image/png', href: `${BASE}icons/icon-192.png` },

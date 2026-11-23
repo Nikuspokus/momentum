@@ -34,7 +34,7 @@ const trendLabel = computed(() => {
 .head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
 .now { margin: 0; font-size: 1.1rem; }
 .now .label { color: var(--ink-2); font-size: 0.9rem; margin-right: 0.3rem; }
-.now strong { font-size: 1.6rem; font-weight: 800; font-stretch: 110%; }
+.now strong { font-size: 1.6rem; font-weight: 800; }
 .lane { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
 .lane-fill { height: 100%; background: var(--cobalt); border-radius: 999px; transition: width 0.5s ease; }
 .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; margin: 0; }

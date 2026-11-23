@@ -121,9 +121,9 @@ async function save() {
 .strong { font-weight: 700; }
 .close { all: unset; cursor: pointer; padding: 0.4rem; }
 .close:focus-visible { outline: 3px solid var(--cobalt); }
-.headline { font-size: 2.4rem; font-weight: 900; font-stretch: 122%; line-height: 1; }
-.phase { font-size: 1.6rem; font-weight: 800; font-stretch: 118%; }
-.clock { font-size: min(30vw, 8rem); font-weight: 900; font-stretch: 125%; line-height: 0.95; letter-spacing: -0.03em; }
+.headline { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.phase { font-size: 1.6rem; font-weight: 800; }
+.clock { font-size: min(30vw, 8rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; }
 .check { display: flex; gap: 0.6rem; align-items: center; font-weight: 600; }
 .check input { width: 22px; height: 22px; min-height: 0; accent-color: var(--cobalt); }
 .big-btn { min-height: 56px; font-size: 1.1rem; }

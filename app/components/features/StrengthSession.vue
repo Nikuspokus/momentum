@@ -194,15 +194,15 @@ onBeforeUnmount(() => {
 .close { all: unset; cursor: pointer; padding: 0.4rem; }
 .close:focus-visible { outline: 3px solid var(--cobalt); }
 .stop { min-height: 40px; padding: 0.3rem 0.9rem; }
-.headline { font-size: 2.4rem; font-weight: 900; font-stretch: 122%; line-height: 1; }
+.headline { font-size: 2.4rem; font-weight: 800; line-height: 1; }
 .ex-name { font-size: 1.5rem; }
-.target { font-size: 2.6rem; font-weight: 900; font-stretch: 122%; line-height: 1; }
+.target { font-size: 2.6rem; font-weight: 800; line-height: 1; }
 .big-btn { min-height: 56px; font-size: 1.1rem; }
 .plan { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.1rem; }
 .plan li { display: flex; justify-content: space-between; gap: 0.8rem; padding: 0.45rem 0; border-top: 1px solid var(--line); }
 .plan li:first-child { border-top: 0; }
-.rest .phase { font-size: 1.6rem; font-weight: 800; font-stretch: 118%; }
-.rest .clock { font-size: min(34vw, 9rem); font-weight: 900; font-stretch: 125%; line-height: 0.95; }
+.rest .phase { font-size: 1.6rem; font-weight: 800; }
+.rest .clock { font-size: min(34vw, 9rem); font-weight: 800; line-height: 0.95; }
 .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; margin: 0; }
 .meta dt { font-size: 0.85rem; color: var(--ink-2); }
 .meta dd { margin: 0; font-weight: 800; font-size: 1.4rem; }

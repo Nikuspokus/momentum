@@ -23,8 +23,8 @@ const { error } = storeToRefs(auth)
 
 <style scoped>
 .login { min-height: 100dvh; display: grid; align-content: center; gap: 1.2rem; max-width: 420px; margin: 0 auto; padding: 1.5rem; }
-.logo { justify-self: center; border-radius: 32px; box-shadow: 0 14px 34px rgb(23 69 54 / 0.35); }
-.brand { text-align: center; font-size: 1.35rem; font-weight: 800; font-stretch: 110%; letter-spacing: -0.01em; margin: 0; }
+.logo { justify-self: center; border-radius: 32px; box-shadow: 0 14px 34px rgb(200 243 29 / 0.22); }
+.brand { text-align: center; font-size: 1.35rem; font-weight: 800; letter-spacing: -0.01em; margin: 0; }
 .lead { font-size: 1.05rem; text-align: center; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 </style>

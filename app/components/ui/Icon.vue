@@ -8,6 +8,7 @@ const PATHS: Record<string, string> = {
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',
   dumbbell: 'M6 7v10M3 10v4M18 7v10M21 10v4M6 12h12',
   plus: 'M12 5v14M5 12h14',
+  'chevron-right': 'M9 5l7 7-7 7',
   check: 'M5 12l5 5L20 7',
   close: 'M6 6l12 12M18 6L6 18',
   scan: 'M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10',
